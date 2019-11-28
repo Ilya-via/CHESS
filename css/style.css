@@ -1,0 +1,145 @@
+@font-face {
+    font-family: "FortunaDow";
+    /* src: url("../fonts/engo.ttf") format("truetype"); */
+    /* src: url("../fonts/engo.ttf"); */
+    src: url("../fonts/FortunaDow.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0 !important;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1170px;
+    padding: 0 15px;
+}
+
+/* .board-container {
+    display: flex;
+    flex-flow: column wrap;
+} */
+.board-container>div:first-child {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.board-container>div:first-child>div:first-child {
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+}
+
+.board-container>div:nth-child(2) {
+    display: flex;
+    flex-direction: row nowrap;
+    justify-content: space-around;
+    margin-left: 40px;
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+}
+
+#turn {
+    font-family: "FortunaDow";
+    max-width: 400px;
+    max-height: 65px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-size: 40px;
+    border-style: inset;
+    text-align: center;
+    transition: .85s linear;
+
+    vertical-align: middle;
+    border: 0;
+    margin: 50px auto;
+    border-radius: 10px !important;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.turnheightlight {
+    background: #b2b6b2 !important;
+    color: #fff;
+}
+
+#game {
+    width: 720px;
+    position: relative;
+    /* margin: 0px auto; */
+    border: 5px solid rgb(64, 64, 64);
+
+}
+
+#game>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.gamecell {
+    width: 90px;
+    height: 90px;
+    margin: 0;
+    transition: all 2 ease-in-out;
+    text-align: center;
+    font-size: 50pt;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.gamecell:hover {
+    background: rgba(37, 88, 228, 0.7);
+    z-index: 2;
+}
+
+
+.board-container>div:first-child>div:first-child>.cellprefix {
+    font-family: "FortunaDow";
+    font-size: 40px;
+    padding: 0 10px 0 0;
+}
+
+.board-container>div:nth-child(2)>.cellprefix {
+    font-family: "FortunaDow";
+    font-size: 40px;
+    padding: 10px 0;
+}
+
+
+
+
+
+.cellprefix,
+.gamecell {
+    flex-flow: column wrap;
+    flex-direction: column-reverse;
+}
+
+.black {
+    background-color: rgb(175, 119, 92);
+}
+
+.white {
+    background-color: rgb(231, 189, 140);
+}
+
+.green {
+    background: rgba(4, 138, 4, 0.4);
+}
+
+/* .shake-little {
+    display: inline-block;
+    transform-origin: center center;
+} */
