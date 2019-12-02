@@ -1,17 +1,21 @@
 let main = {
 
   variables: {
+    log: {
+      start: '',
+      end: '',
+      moveNumber: 0
+    },
     turn: 'w',
     selectedpiece: '',
     highlighted: [],
     pieces: {
       w_king: {
-        position: '5_1',
+        position: '5_1', // x_y
         img: '&#9812;',
         captured: false,
         moved: false,
         type: 'w_king'
-
       },
       w_queen: {
         position: '4_1',
@@ -236,6 +240,7 @@ let main = {
   },
 
   methods: {
+    //Ключ с функцией задающий в div с классом ".gamecell" атрибут "chess" со значениями "null" если ничего не должно быть или значение ключа "pieces" (w_pawn1).
     gamesetup: function () {
       $('.gamecell').attr('chess', 'null');
       for (let gamepiece in main.variables.pieces) {
@@ -245,21 +250,24 @@ let main = {
     },
 
     moveoptions: function (selectedpiece) {
-
+      // выбранная фигура и её координаты в "selectedpiece" приходит "type" (w_pawn1) фигуры.
+      // split() разбивает объект String на массив строк путём разделения строки указанной подстрокой.
+      // Получаем координаты выбранной вигуры.
       let position = { x: '', y: '' };
-      position.x = main.variables.pieces[selectedpiece].position.split('_')[0];
-      position.y = main.variables.pieces[selectedpiece].position.split('_')[1];
+      position.x = main.variables.pieces[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
+      position.y = main.variables.pieces[selectedpiece].position.split('_')[1]; // ключ position второе значение.
 
-      // these options need to be var instead of let
+      // Здесь необходимо использовать var вместо let
       var options = [];
       var coordinates = [];
       var startpoint = main.variables.pieces[selectedpiece].position;
       var c1, c2, c3, c4, c5, c6, c7, c8;
 
       if (main.variables.highlighted.length != 0) {
-        main.methods.togglehighlight(main.variables.highlighted);
+        main.methods.togglehighlight(main.variables.highlighted); // Если массив "highlighted" не пустой выполняется подсветка возможных ходов, иначе - ниже.
       }
-
+      // Метод map() создаёт новый массив с результатом вызова указанной функции для каждого элемента массива.
+      // Функция parseInt() принимает СТРОКУ в качестве аргумента и возвращает ЦЕЛОЕ ЧИСЛО в соответствии с указанным основанием системы счисления.
       switch (main.variables.pieces[selectedpiece].type) {
         case 'w_king':
 
@@ -272,7 +280,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
           }
-
+          // Метод slice() возвращает новый массив, содержащий копию части исходного массива.
           options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
           main.variables.highlighted = options.slice(0);
           main.methods.togglehighlight(options);
@@ -289,11 +297,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
           }
-          /*
-            coordinates = [{ x: 1, y: 1 },{ x: 1, y: 0 },{ x: 1, y: -1 },{ x: 0, y: -1 },{ x: -1, y: -1 },{ x: -1, y: 0 },{ x: -1, y: 1 },{ x: 0, y: 1 }].map(function(val){
-              return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
-            });
-          */
+
           options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
           main.variables.highlighted = options.slice(0);
           main.methods.togglehighlight(options);
@@ -415,16 +419,16 @@ let main = {
 
           break;
         case 'w_pawn':
-
+          // Правило для пешки с прыжком на два поля с изначальной позиции.
           if (main.variables.pieces[selectedpiece].moved == false) {
-
+            // Задаются возможные для хода поля в данный момент (coordinates = ["5_3", "5_4", "6_3", "4_3"].
             coordinates = [{ x: 0, y: 1 }, { x: 0, y: 2 }, { x: 1, y: 1 }, { x: -1, y: 1 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
 
           }
+          // Правило для пешки без прыжка на два поля с изначальной позиции.
           else if (main.variables.pieces[selectedpiece].moved == true) {
-
             coordinates = [{ x: 0, y: 1 }, { x: 1, y: 1 }, { x: -1, y: 1 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
@@ -464,14 +468,14 @@ let main = {
       }
     },
 
-    options: function (startpoint, coordinates, piecetype) { // first check if any of the possible coordinates is out of bounds;
+    options: function (startpoint, coordinates, piecetype) { // Сначала проверяем, находится ли какая-либо из возможных координат за границами доски.
 
-      coordinates = coordinates.filter(val => {
+      coordinates = coordinates.filter(val => { // координата из массива "coordinates"  ("5_3").
         let pos = { x: 0, y: 0 };
         pos.x = parseInt(val.split('_')[0]);
         pos.y = parseInt(val.split('_')[1]);
 
-        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // if it is not out of bounds, return the coordinate;
+        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // Если не за границей доски, вернуть координату (&& возвращает первое true).
           return val;
         }
       });
@@ -517,13 +521,13 @@ let main = {
             sp.x = startpoint.split('_')[0];
             sp.y = startpoint.split('_')[1];
 
-            if (coordinate[0] < sp.x || coordinate[0] > sp.x) { // if the coordinate is on either side of the center, check if it has an opponent piece on it;
-              return ($('#' + val).attr('chess') != 'null' && ($('#' + val).attr('chess')).slice(0, 1) == 'b'); // return coordinates with opponent pieces on them
-            } else { // else if the coordinate is in the center;
+            if (coordinate[0] < sp.x || coordinate[0] > sp.x) { // Если координата находится по обе стороны от центра, проверяем, есть ли на нем фигура противника.
+              return ($('#' + val).attr('chess') != 'null' && ($('#' + val).attr('chess')).slice(0, 1) == 'b'); // возвращаем координаты с фигурами противника на них.
+            } else { // иначе, если координата находится в центре.
               if (coordinate[1] == (parseInt(sp.y) + 2) && $('#' + sp.x + '_' + (parseInt(sp.y) + 1)).attr('chess') != 'null') {
-                // do nothing if this is the pawns first move, and there is a piece in front of the 2nd coordinate;
+                // ничего не делаем, если это первый ход пешки, а перед 2-й координатой есть фигура.
               } else {
-                return ($('#' + val).attr('chess') == 'null'); // otherwise return the coordinate if there is no chess piece on it;
+                return ($('#' + val).attr('chess') == 'null'); // в противном случае возвращаем координату, если на ней нет шахматной фигуры.
               }
             }
 
@@ -554,7 +558,7 @@ let main = {
           break;
       }
 
-      return coordinates;
+      return coordinates; // Координаты полей возможных ходов (подсвечиваются).
     },
 
     w_options: function (position, coordinates) {
@@ -571,7 +575,7 @@ let main = {
         if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // if it is not out of bounds, return the coordinate;
           return val;
         }
-      }).filter(val => { // algorithm to determine line-of-sight movement options for bishop/rook/queen;
+      }).filter(val => { // алгоритм определения параметров движения по линии прямой видимости для bishop/rook/queen.
         if (flag == false) {
           if ($('#' + val).attr('chess') == 'null') {
             console.log(val)
@@ -622,7 +626,9 @@ let main = {
 
     },
 
+    // Удаление захваченной фигуры.
     capture: function (target) {
+
       let selectedpiece = {
         name: $('#' + main.variables.selectedpiece).attr('chess'),
         id: main.variables.selectedpiece
@@ -653,23 +659,16 @@ let main = {
     move: function (target) {
 
       let selectedpiece = $('#' + main.variables.selectedpiece).attr('chess');
-
-      // new cell
+      main.variables.log.start = main.variables.pieces[selectedpiece].position; // Загружаем в лог начальную позицию.
+      // Перемещение фигуры на новое поле.
       $('#' + target.id).html(main.variables.pieces[selectedpiece].img);
       $('#' + target.id).attr('chess', selectedpiece);
-      // old cell
+      // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на ''.
       $('#' + main.variables.selectedpiece).html('');
-      $('#' + main.variables.selectedpiece).attr('chess', 'null');
-      main.variables.pieces[selectedpiece].position = target.id;
+      $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
+      main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры на текущую.
+      main.variables.log.end = main.variables.pieces[selectedpiece].position; // Загружаем в лог конечную позицию.
       main.variables.pieces[selectedpiece].moved = true;
-
-      /*
-      // toggle highlighted coordinates
-      main.methods.togglehighlight(main.variables.highlighted);
-      main.variables.highlighted.length = 0;
-      // set the selected piece to '' again
-      main.variables.selectedpiece = '';
-      */
     },
 
     endturn: function () {
@@ -682,11 +681,14 @@ let main = {
         main.variables.highlighted.length = 0;
         // set the selected piece to '' again
         main.variables.selectedpiece = '';
+        main.methods.writelog();
+        main.methods.scrollbottom();
 
         $('#turn').html("Ход Чёрных");
         $('#turn').removeClass('white');
         $('#turn').addClass('black');
-        
+        // Сюда вставить таймер
+
       } else if (main.variables.turn = 'b') {
         main.variables.turn = 'w';
 
@@ -695,23 +697,101 @@ let main = {
         main.variables.highlighted.length = 0;
         // set the selected piece to '' again
         main.variables.selectedpiece = '';
+        main.methods.writelog();
+        main.methods.scrollbottom();
 
         $('#turn').html("Ход Белых");
         $('#turn').removeClass('black');
         $('#turn').addClass('white');
-       
+        // Сюда вставить таймер
       }
 
     },
 
-    togglehighlight: function (options) {
-      options.forEach(function (element, index, array) {
-        $('#' + element).toggleClass("green shake-little neongreen_txt");
-      });
+    writelog: function () { // Лог игры 
+      // Метод charAt() возвращает указанный символ из строки.
+      function clearLogStartEnd() {
+        main.variables.log.start = "";
+        main.variables.log.end = "";
+      }
+      function writelogWhiteTurn() {
+        $('#game-log').append('<p>');
+        $('#game-log>p:last-child').append('&#160;' + T + '&#160;');
+        K = "&#160;";
+        main.variables.log.moveNumber = main.variables.log.moveNumber + 2;
+        clearLogStartEnd();
+        return
+      }
+      function writelogBlackTurn() {
+        $('#game-log>p:last-child').append('&#160;' + T + '&#160;');
+        K = "&#160;";
+        clearLogStartEnd();
+        return
+      }
+
+      var startPositionFigure = main.variables.log.start;
+      var endPositionFigure = main.variables.log.end;
+      var K = "&#160;";
+      var T;
+      var j = "abcdefgh";
+      
+      // При рокировке.
+      if (startPositionFigure == "0-0" || startPositionFigure == "0-0-0") {
+        // Белые сделали ход
+        if (main.variables.turn == 'b') { // Ставим 'b' так как изменения в main.variables.turn УЖЕ произведены, а "функция" writelog выполняется после этих изменений.
+          K = K + ((2 + main.variables.log.moveNumber) >> 1) + ". "; // 0 >> 1 = 0,   1 >> 1 = 0,   2 >> 1 = 1,   3 >> 1 = 1,   4 >> 1 = 2.
+          T = K + startPositionFigure;
+          writelogWhiteTurn();
+        }
+
+        // Чёрные сделали ход
+        if (main.variables.turn == 'w') {
+          K = "&#160;&#160;";
+          T = K + startPositionFigure;
+          writelogBlackTurn();
+        }
+        return
+      }
+
+      var x = parseInt(startPositionFigure.split('_')[0]),
+        y = parseInt(startPositionFigure.split('_')[1]),
+        X = parseInt(endPositionFigure.split('_')[0]),
+        Y = parseInt(endPositionFigure.split('_')[1]);
+
+      // Белые сделали ход
+      if (main.variables.turn == 'b') { // Ставим 'b' так как изменения в main.variables.turn УЖЕ произведены, а "функция" writelog выполняется после этих изменений.
+        K = K + ((2 + main.variables.log.moveNumber) >> 1) + ". "; // 0 >> 1 = 0,   1 >> 1 = 0,   2 >> 1 = 1,   3 >> 1 = 1,   4 >> 1 = 2.
+        T = K + j.charAt(x - 1) + (y) + "&#45;" + j.charAt(X - 1) + (Y);
+        writelogWhiteTurn();
+      }
+
+      // Чёрные сделали ход
+      if (main.variables.turn == 'w') {
+        K = "&#160;&#160;";
+        T = K + j.charAt(x - 1) + (y) + "&#45;" + j.charAt(X - 1) + (Y);
+        writelogBlackTurn();
+      }
     },
+
+    // Скролл в "#game-log" привязан к низу.
+    scrollbottom: function () {
+      let block = document.getElementById("game-log");
+      block.scrollTop = block.scrollHeight;
+    },
+
+    // Подсветка возможных ходов.
+    togglehighlight: function (options) {
+      // Метод forEach() выполняет указанную функцию один раз для каждого элемента в массиве.
+      options.forEach(function (element, index, array) {
+        $('#' + element).toggleClass("green");
+      });
+    }
 
   }
 };
+
+
+
 
 // Движение фигур
 $(document).ready(function () {
@@ -732,16 +812,16 @@ $(document).ready(function () {
 
     var target = {
       name: $(this).attr('chess'),
-      id: e.target.id
+      id: e.target.id // Привязываем к событию originalEvent: MouseEvent, type: "click", присваивание значения "id" (5_2) к ключу id в объекте target.
     };
 
-    if (main.variables.selectedpiece == '' && target.name.slice(0, 1) == main.variables.turn) { // show options
+    if (main.variables.selectedpiece == '' && target.name.slice(0, 1) == main.variables.turn) {
 
-      // moveoptions
+      // moveoptions.
       main.variables.selectedpiece = e.target.id;
       main.methods.moveoptions($(this).attr('chess'));
-
-    } else if (main.variables.selectedpiece != '' && target.name == 'null') { // move selected piece piece
+      // Рокировка от сюда.
+    } else if (main.variables.selectedpiece != '' && target.name == 'null') { // Перемещаем выбранную фигуру
 
       if (selectedpiece.name == 'w_king' || selectedpiece.name == 'b_king') {
 
@@ -753,7 +833,7 @@ $(document).ready(function () {
         let t5 = (target.id == '7_8');
         let t6 = (target.id == '7_1');
 
-        if (t0 && t2 && t4 && t6) { // castle w_king
+        if (t0 && t2 && t4 && t6) { // короткая рокировка w_king.
 
           let k_position = '5_1';
           let k_target = '7_1';
@@ -774,16 +854,16 @@ $(document).ready(function () {
           $('#' + r_target).html(main.variables.pieces['w_rook2'].img);
           $('#' + r_target).attr('chess', 'w_rook2');
 
+          main.variables.log.start = '0-0';
           main.methods.endturn();
 
-        } else if (t1 && t2 && t3 && t5) { // castle b_king
+        } else if (t1 && t2 && t3 && t5) { // короткая рокировка b_king
 
           let k_position = '5_8';
           let k_target = '7_8';
           let r_position = '8_8';
           let r_target = '6_8';
 
-          // w_king
           main.variables.pieces['b_king'].position = '7_8';
           main.variables.pieces['b_king'].moved = true;
           $('#' + k_position).html('');
@@ -798,6 +878,7 @@ $(document).ready(function () {
           $('#' + r_target).html(main.variables.pieces['b_rook2'].img);
           $('#' + r_target).attr('chess', 'b_rook2');
 
+          main.variables.log.start = '0-0';
           main.methods.endturn();
 
         } else { // move selectedpiece
@@ -816,7 +897,9 @@ $(document).ready(function () {
 
       if (selectedpiece.id != target.id && main.variables.highlighted.indexOf(target.id) != (-1)) { // if it's not trying to capture pieces not in its movement range
 
-        // capture
+        // capture. Координаты при взятии фигуры.
+        main.variables.log.start = main.variables.pieces[selectedpiece.name].position;
+        main.variables.log.end = main.variables.pieces[target.name].position;
         main.methods.capture(target)
         main.methods.endturn();
 
@@ -835,6 +918,7 @@ $(document).ready(function () {
 
   });
 
+  // Убираем вызов контестного меню - ПКМ на "доске".
   $('body').contextmenu(function (e) {
     e.preventDefault();
   });
