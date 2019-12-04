@@ -6,10 +6,84 @@ let main = {
       end: '',
       moveNumber: 0
     },
+    target: { // Cобытие originalEvent: MouseEvent, type: "click" на выбранное поле и его координата.
+      id: '',
+      name: ''
+    },
     turn: 'w',
     selectedpiece: '',
     highlighted: [],
     pieces: {
+
+
+      pawnFigure: {
+        w_queen: {
+          position: '',
+          img: '&#9813;',
+          captured: false,
+          moved: false,
+          type: 'w_queen'
+        },
+
+        w_rook: {
+          position: '',
+          img: '&#9814;',
+          captured: false,
+          moved: false,
+          type: 'w_rook'
+        },
+
+        w_knight: {
+          position: '',
+          img: '&#9816;',
+          captured: false,
+          moved: false,
+          type: 'w_knight'
+        },
+
+        w_bishop: {
+          position: '',
+          img: '&#9815;',
+          captured: false,
+          moved: false,
+          type: 'w_bishop'
+        },
+
+
+        b_queen: {
+          position: '',
+          img: '&#9819;',
+          captured: false,
+          moved: false,
+          type: 'b_queen'
+        },
+
+        b_rook: {
+          position: '',
+          img: '&#9820;',
+          captured: false,
+          moved: false,
+          type: 'b_rook'
+        },
+
+        b_knight: {
+          position: '',
+          img: '&#9822;',
+          captured: false,
+          moved: false,
+          type: 'b_knight'
+        },
+
+        b_bishop: {
+          position: '',
+          img: '&#9821;',
+          captured: false,
+          moved: false,
+          type: 'b_bishop'
+        },
+      },
+
+
       w_king: {
         position: '5_1', // x_y
         img: '&#9812;',
@@ -241,6 +315,7 @@ let main = {
 
   methods: {
     //Ключ с функцией задающий в div с классом ".gamecell" атрибут "chess" со значениями "null" если ничего не должно быть или значение ключа "pieces" (w_pawn1).
+    // Расставляем фигуры.
     gamesetup: function () {
       $('.gamecell').attr('chess', 'null');
       for (let gamepiece in main.variables.pieces) {
@@ -280,7 +355,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
           }
-          // Метод slice() возвращает новый массив, содержащий копию части исходного массива.
+
           options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
           main.variables.highlighted = options.slice(0);
           main.methods.togglehighlight(options);
@@ -434,7 +509,8 @@ let main = {
             });
 
           }
-
+          // Метод slice() возвращает новый массив, содержащий копию части исходного массива.
+          // Добавляем подсвечиваемые координаты.
           options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
           main.variables.highlighted = options.slice(0);
           main.methods.togglehighlight(options);
@@ -443,7 +519,7 @@ let main = {
 
         case 'b_pawn':
 
-          // calculate pawn options
+          // calculate pawn options.
           if (main.variables.pieces[selectedpiece].moved == false) {
 
             coordinates = [{ x: 0, y: -1 }, { x: 0, y: -2 }, { x: 1, y: -1 }, { x: -1, y: -1 }].map(function (val) {
@@ -470,7 +546,7 @@ let main = {
 
     options: function (startpoint, coordinates, piecetype) { // Сначала проверяем, находится ли какая-либо из возможных координат за границами доски.
 
-      coordinates = coordinates.filter(val => { // координата из массива "coordinates"  ("5_3").
+      coordinates = coordinates.filter(val => { // координата из объекта "coordinates"  ("5_3").
         let pos = { x: 0, y: 0 };
         pos.x = parseInt(val.split('_')[0]);
         pos.y = parseInt(val.split('_')[1]);
@@ -513,7 +589,7 @@ let main = {
           break;
 
         case 'w_pawn':
-
+          // Убираем невозможные ходы.
           coordinates = coordinates.filter(val => {
             let sp = { x: 0, y: 0 };
             let coordinate = val.split('_');
@@ -521,7 +597,7 @@ let main = {
             sp.x = startpoint.split('_')[0];
             sp.y = startpoint.split('_')[1];
 
-            if (coordinate[0] < sp.x || coordinate[0] > sp.x) { // Если координата находится по обе стороны от центра, проверяем, есть ли на нем фигура противника.
+            if (coordinate[0] < sp.x || coordinate[0] > sp.x) { // Если координата находится слева или справа от центра, проверяем, есть ли на нем фигура противника.
               return ($('#' + val).attr('chess') != 'null' && ($('#' + val).attr('chess')).slice(0, 1) == 'b'); // возвращаем координаты с фигурами противника на них.
             } else { // иначе, если координата находится в центре.
               if (coordinate[1] == (parseInt(sp.y) + 2) && $('#' + sp.x + '_' + (parseInt(sp.y) + 1)).attr('chess') != 'null') {
@@ -565,14 +641,14 @@ let main = {
 
       let flag = false;
 
-      coordinates = coordinates.map(function (val) { // convert the x,y into actual grid id coordinates;
+      coordinates = coordinates.map(function (val) { // преобразовать x, y в фактические координаты - id.
         return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
       }).filter(val => {
         let pos = { x: 0, y: 0 };
         pos.x = parseInt(val.split('_')[0]);
         pos.y = parseInt(val.split('_')[1]);
 
-        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // if it is not out of bounds, return the coordinate;
+        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // Если не за границей доски, вернуть координату (&& возвращает первое true).
           return val;
         }
       }).filter(val => { // алгоритм определения параметров движения по линии прямой видимости для bishop/rook/queen.
@@ -599,17 +675,17 @@ let main = {
 
       let flag = false;
 
-      coordinates = coordinates.map(function (val) { // convert the x,y into actual grid id coordinates;
+      coordinates = coordinates.map(function (val) { // преобразовать x, y в фактические координаты - id.
         return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
       }).filter(val => {
         let pos = { x: 0, y: 0 };
         pos.x = parseInt(val.split('_')[0]);
         pos.y = parseInt(val.split('_')[1]);
 
-        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // if it is not out of bounds, return the coordinate;
+        if (!(pos.x < 1) && !(pos.x > 8) && !(pos.y < 1) && !(pos.y > 8)) { // Если не за границей доски, вернуть координату (&& возвращает первое true).
           return val;
         }
-      }).filter(val => { // algorithm to determine line-of-sight movement options for bishop/rook/queen;
+      }).filter(val => { // алгоритм определения параметров движения по линии прямой видимости для bishop/rook/queen.
         if (flag == false) {
           if ($('#' + val).attr('chess') == 'null') {
             return val;
@@ -646,28 +722,107 @@ let main = {
       main.variables.pieces[selectedpiece.name].moved = true;
       // captured piece
       main.variables.pieces[target.name].captured = true;
-      /*
-      // toggle highlighted coordinates
-      main.methods.togglehighlight(main.variables.highlighted);
-      main.variables.highlighted.length = 0;
-      // set the selected piece to '' again
-      main.variables.selectedpiece = '';
-      */
+    },
+
+
+    pawntransform: function (target) {
+      var currentFigure = {
+        name: '',
+        type: {
+          w_queen: "&#9813;",
+          b_queen: "&#9819;",
+          w_rook: "&#9814;",
+          b_rook: "&#9820;",
+          w_knight: "&#9816;",
+          b_knight: "&#9822;",
+          w_bishop: "&#9815;",
+          b_bishop: "&#9821;"
+        },
+      }
+
+      function movePawn() {
+        let selectedpiece = $('#' + main.variables.selectedpiece).attr('chess');
+        main.variables.log.start = main.variables.pieces[selectedpiece].position;
+        getSelectedFigure();
+
+        $('#' + target.id).html(currentFigure.type[currentFigure.name]); // Показываем изображение фигуры на новом поле.
+        main.variables.pieces[main.variables.target.name].type = currentFigure.name;
+        $('#' + target.id).attr('chess', currentFigure.name); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
+
+        // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на ''.
+        $('#' + main.variables.selectedpiece).html('');
+        $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
+        main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры на текущую.
+        main.variables.log.end = main.variables.pieces[selectedpiece].position; // Загружаем в лог конечную позицию фигуры.
+        main.variables.pieces[selectedpiece].moved = true;
+      }
+
+      function getSelectedFigure() {
+
+        let f;
+        let value = $('.change-figure').val();
+        switch (value) {
+          case 'Q':
+            f = '_queen';
+            break;
+          case 'R':
+            f = '_rook';
+            break;
+          case 'N':
+            f = '_knight';
+            break;
+          case 'B':
+            f = '_bishop';
+            break;
+          default:
+            console.log('Выбери из четырёх фигур');
+        }
+        return currentFigure.name = main.variables.turn + f;
+      }
+
+      // Проверка пешка ли это.
+      if (main.variables.target.name.indexOf('pawn') + 1) {
+        let y;
+        y = parseInt(main.variables.target.id.split('_')[1]);
+        if (y == 1 || y == 8) {
+          // Редактированную функцию  main.methods.move(target);
+          movePawn();
+          main.methods.endturn();
+        } else return
+      } else return
+
+
+
+
 
     },
 
-    move: function (target) {
 
+    // Функция сравнивает id div-a по кторрому я кликнул для перемещения фигуры, с массивом highlighted возможных ходов.
+    // Выдаёт true или false.
+    canmove: function () {
+      if (main.variables.selectedpiece == main.variables.target.id) { return false } // Если координата поля на котором сработало событие originalEvent: MouseEvent, type: "click" равна позици фигуры которой будем ходить - return, иначе продолжить.
+      else {
+        var arr = [];
+        main.variables.highlighted.forEach(function (element, index, array) {
+          arr.push(main.variables.target.id == element); // Ищем наличие координаты поля, на которое выбрали ходить,  в массиве возможных ходов.
+        });
+        if (($.inArray(true, arr)) == parseInt("-1")) { return false } // Если в массиве возможных ходов ничего не найдено "-1" - return false, иначе return true.
+        else { return true }
+      }
+    },
+
+    move: function (target) {
       let selectedpiece = $('#' + main.variables.selectedpiece).attr('chess');
       main.variables.log.start = main.variables.pieces[selectedpiece].position; // Загружаем в лог начальную позицию.
-      // Перемещение фигуры на новое поле.
-      $('#' + target.id).html(main.variables.pieces[selectedpiece].img);
-      $('#' + target.id).attr('chess', selectedpiece);
+
+      $('#' + target.id).html(main.variables.pieces[selectedpiece].img); // Перемещение фигуры на новое поле.
+      $('#' + target.id).attr('chess', selectedpiece); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
       // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на ''.
       $('#' + main.variables.selectedpiece).html('');
       $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
       main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры на текущую.
-      main.variables.log.end = main.variables.pieces[selectedpiece].position; // Загружаем в лог конечную позицию.
+      main.variables.log.end = main.variables.pieces[selectedpiece].position; // Загружаем в лог конечную позицию фигуры.
       main.variables.pieces[selectedpiece].moved = true;
     },
 
@@ -676,11 +831,12 @@ let main = {
       if (main.variables.turn == 'w') {
         main.variables.turn = 'b';
 
-        // toggle highlighted coordinates
+        // toggle highlighted coordinates.
         main.methods.togglehighlight(main.variables.highlighted);
         main.variables.highlighted.length = 0;
-        // set the selected piece to '' again
+        // Очищаем массив с координатами, подсвечиваемых полей. И ключ в объекте  main.variables.target с выбранным полем.
         main.variables.selectedpiece = '';
+        main.variables.target.id = '';
         main.methods.writelog();
         main.methods.scrollbottom();
 
@@ -692,11 +848,12 @@ let main = {
       } else if (main.variables.turn = 'b') {
         main.variables.turn = 'w';
 
-        // toggle highlighted coordinates
+        // toggle highlighted coordinates.
         main.methods.togglehighlight(main.variables.highlighted);
         main.variables.highlighted.length = 0;
-        // set the selected piece to '' again
+        // Очищаем массив с координатами, подсвечиваемых полей.
         main.variables.selectedpiece = '';
+        main.variables.target.id = '';
         main.methods.writelog();
         main.methods.scrollbottom();
 
@@ -734,7 +891,7 @@ let main = {
       var K = "&#160;";
       var T;
       var j = "abcdefgh";
-      
+
       // При рокировке.
       if (startPositionFigure == "0-0" || startPositionFigure == "0-0-0") {
         // Белые сделали ход
@@ -783,7 +940,7 @@ let main = {
     togglehighlight: function (options) {
       // Метод forEach() выполняет указанную функцию один раз для каждого элемента в массиве.
       options.forEach(function (element, index, array) {
-        $('#' + element).toggleClass("green");
+        $('#' + element).toggleClass("true-move");
       });
     }
 
@@ -796,7 +953,7 @@ let main = {
 // Движение фигур
 $(document).ready(function () {
   main.methods.gamesetup();
-
+  // click() привязывает JavaScript обработчик событий "click" (клик левой кнопкой мыши), или запускает это событие на выбранный элемент. Левая кнопка мыши нажата, когда курсор находился внутри элемента. Левая кнопка мыши отпущена пока курсор находится внутри элемента.
   $('.gamecell').click(function (e) {
 
     var selectedpiece = {
@@ -814,6 +971,10 @@ $(document).ready(function () {
       name: $(this).attr('chess'),
       id: e.target.id // Привязываем к событию originalEvent: MouseEvent, type: "click", присваивание значения "id" (5_2) к ключу id в объекте target.
     };
+    main.variables.target.id = target.id;
+    if (!(target.name == "null")) { // Для записи pieces (w_pawn5) в main.variables.target.name, + исключить перезапись "null"-ом.
+      main.variables.target.name = target.name;
+    }
 
     if (main.variables.selectedpiece == '' && target.name.slice(0, 1) == main.variables.turn) {
 
@@ -881,33 +1042,47 @@ $(document).ready(function () {
           main.variables.log.start = '0-0';
           main.methods.endturn();
 
-        } else { // move selectedpiece
-          main.methods.move(target);
-          main.methods.endturn();
+        } else { // move selectedpiece.
+          // Здесь вставить функцию canMove.
+          if (main.methods.canmove()) {
+            main.methods.move(target);
+            main.methods.endturn();
+          }
+          else {
+            return
+          }
         }
 
-      } else { // else if selecedpiece.name is not white/black king than move
-
-        main.methods.move(target);
-        main.methods.endturn();
-
+      } else {
+        // иначе, если selecedpiece.name не белый / черный король, тогда вызываем "move".
+        // Здесь вставить функцию canMove.
+        if (main.methods.canmove()) {
+          main.methods.pawntransform(target);
+          main.methods.move(target);
+          main.methods.endturn();
+        } else {
+          return
+        }
       }
 
     } else if (main.variables.selectedpiece != '' && target.name != 'null' && target.id != selectedpiece.id && selectedpiece.name.slice(0, 1) != target.name.slice(0, 1)) { // capture a piece
 
-      if (selectedpiece.id != target.id && main.variables.highlighted.indexOf(target.id) != (-1)) { // if it's not trying to capture pieces not in its movement range
+      if (selectedpiece.id != target.id && main.variables.highlighted.indexOf(target.id) != (-1)) { // Если мы не пытаемся захватить фигуры не в диапазоне движения фигуры.
 
         // capture. Координаты при взятии фигуры.
         main.variables.log.start = main.variables.pieces[selectedpiece.name].position;
         main.variables.log.end = main.variables.pieces[target.name].position;
-        main.methods.capture(target)
-        main.methods.endturn();
-
+        // Здесь вставить функцию canMove.
+        if (main.methods.canmove()) {
+          main.methods.pawntransform(target);
+          main.methods.capture(target)
+          main.methods.endturn();
+        } else { return }
       }
 
-    } else if (main.variables.selectedpiece != '' && target.name != 'null' && target.id != selectedpiece.id && selectedpiece.name.slice(0, 1) == target.name.slice(0, 1)) { // toggle move options
+    } else if (main.variables.selectedpiece != '' && target.name != 'null' && target.id != selectedpiece.id && selectedpiece.name.slice(0, 1) == target.name.slice(0, 1)) { // toggle move options.
 
-      // toggle
+      // toggle.
       main.methods.togglehighlight(main.variables.highlighted);
       main.variables.highlighted.length = 0;
 
