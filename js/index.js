@@ -15,11 +15,10 @@ let main = {
     highlighted: [],
     pieces: {
 
-
       pawnFigure: {
         w_queen: {
           position: '',
-          img: '&#9813;',
+          trigger: false, // Если функция pawntransform отработала, то trigger = tru          img: '&#9813;',
           captured: false,
           moved: false,
           type: 'w_queen'
@@ -28,6 +27,7 @@ let main = {
         w_rook: {
           position: '',
           img: '&#9814;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'w_rook'
@@ -36,6 +36,7 @@ let main = {
         w_knight: {
           position: '',
           img: '&#9816;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'w_knight'
@@ -44,6 +45,7 @@ let main = {
         w_bishop: {
           position: '',
           img: '&#9815;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'w_bishop'
@@ -53,6 +55,7 @@ let main = {
         b_queen: {
           position: '',
           img: '&#9819;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'b_queen'
@@ -61,6 +64,7 @@ let main = {
         b_rook: {
           position: '',
           img: '&#9820;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'b_rook'
@@ -69,6 +73,7 @@ let main = {
         b_knight: {
           position: '',
           img: '&#9822;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'b_knight'
@@ -77,6 +82,7 @@ let main = {
         b_bishop: {
           position: '',
           img: '&#9821;',
+          trigger: false,
           captured: false,
           moved: false,
           type: 'b_bishop'
@@ -87,6 +93,7 @@ let main = {
       w_king: {
         position: '5_1', // x_y
         img: '&#9812;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_king'
@@ -94,6 +101,7 @@ let main = {
       w_queen: {
         position: '4_1',
         img: '&#9813;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_queen'
@@ -101,6 +109,7 @@ let main = {
       w_bishop1: {
         position: '3_1',
         img: '&#9815;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_bishop'
@@ -108,6 +117,7 @@ let main = {
       w_bishop2: {
         position: '6_1',
         img: '&#9815;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_bishop'
@@ -115,6 +125,7 @@ let main = {
       w_knight1: {
         position: '2_1',
         img: '&#9816;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_knight'
@@ -122,6 +133,7 @@ let main = {
       w_knight2: {
         position: '7_1',
         img: '&#9816;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_knight'
@@ -129,6 +141,7 @@ let main = {
       w_rook1: {
         position: '1_1',
         img: '&#9814;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_rook'
@@ -136,6 +149,7 @@ let main = {
       w_rook2: {
         position: '8_1',
         img: '&#9814;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'w_rook'
@@ -143,6 +157,7 @@ let main = {
       w_pawn1: {
         position: '1_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -150,6 +165,7 @@ let main = {
       w_pawn2: {
         position: '2_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -157,6 +173,7 @@ let main = {
       w_pawn3: {
         position: '3_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -164,6 +181,7 @@ let main = {
       w_pawn4: {
         position: '4_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -171,6 +189,7 @@ let main = {
       w_pawn5: {
         position: '5_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -178,6 +197,7 @@ let main = {
       w_pawn6: {
         position: '6_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -185,6 +205,7 @@ let main = {
       w_pawn7: {
         position: '7_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -192,6 +213,7 @@ let main = {
       w_pawn8: {
         position: '8_2',
         img: '&#9817;',
+        trigger: false,
         captured: false,
         type: 'w_pawn',
         moved: false
@@ -200,6 +222,7 @@ let main = {
       b_king: {
         position: '5_8',
         img: '&#9818;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_king'
@@ -207,6 +230,7 @@ let main = {
       b_queen: {
         position: '4_8',
         img: '&#9819;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_queen'
@@ -214,6 +238,7 @@ let main = {
       b_bishop1: {
         position: '3_8',
         img: '&#9821;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_bishop'
@@ -221,6 +246,7 @@ let main = {
       b_bishop2: {
         position: '6_8',
         img: '&#9821;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_bishop'
@@ -228,6 +254,7 @@ let main = {
       b_knight1: {
         position: '2_8',
         img: '&#9822;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_knight'
@@ -235,6 +262,7 @@ let main = {
       b_knight2: {
         position: '7_8',
         img: '&#9822;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_knight'
@@ -242,6 +270,7 @@ let main = {
       b_rook1: {
         position: '1_8',
         img: '&#9820;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_rook'
@@ -249,6 +278,7 @@ let main = {
       b_rook2: {
         position: '8_8',
         img: '&#9820;',
+        trigger: false,
         captured: false,
         moved: false,
         type: 'b_rook'
@@ -256,6 +286,7 @@ let main = {
       b_pawn1: {
         position: '1_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -263,6 +294,7 @@ let main = {
       b_pawn2: {
         position: '2_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -270,6 +302,7 @@ let main = {
       b_pawn3: {
         position: '3_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -277,6 +310,7 @@ let main = {
       b_pawn4: {
         position: '4_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -284,6 +318,7 @@ let main = {
       b_pawn5: {
         position: '5_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -291,6 +326,7 @@ let main = {
       b_pawn6: {
         position: '6_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -298,6 +334,7 @@ let main = {
       b_pawn7: {
         position: '7_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -305,6 +342,7 @@ let main = {
       b_pawn8: {
         position: '8_7',
         img: '&#9823;',
+        trigger: false,
         captured: false,
         type: 'b_pawn',
         moved: false
@@ -329,13 +367,31 @@ let main = {
       // split() разбивает объект String на массив строк путём разделения строки указанной подстрокой.
       // Получаем координаты выбранной вигуры.
       let position = { x: '', y: '' };
-      position.x = main.variables.pieces[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
-      position.y = main.variables.pieces[selectedpiece].position.split('_')[1]; // ключ position второе значение.
+
+      function triggerValue() {
+        for (var key in main.variables.pieces.pawnFigure) {
+          if (key.indexOf(selectedpiece) + 1) {
+            if (main.variables.pieces.pawnFigure[selectedpiece].trigger == true) {
+              return true // Если trigger = false - не трансформированная из пешки фигура.
+            }
+          }
+        } return false // Если ничего не найдено.
+      }
+
+      if (triggerValue()) {
+        position.x = main.variables.pieces.pawnFigure[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
+        position.y = main.variables.pieces.pawnFigure[selectedpiece].position.split('_')[1]; // ключ position второе значение.
+        var startpoint = main.variables.pieces.pawnFigure[selectedpiece].position;
+      } else {
+        position.x = main.variables.pieces[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
+        position.y = main.variables.pieces[selectedpiece].position.split('_')[1]; // ключ position второе значение.
+        var startpoint = main.variables.pieces[selectedpiece].position;
+      }
 
       // Здесь необходимо использовать var вместо let
       var options = [];
       var coordinates = [];
-      var startpoint = main.variables.pieces[selectedpiece].position;
+      // var startpoint = main.variables.pieces[selectedpiece].position;
       var c1, c2, c3, c4, c5, c6, c7, c8;
 
       if (main.variables.highlighted.length != 0) {
@@ -343,39 +399,90 @@ let main = {
       }
       // Метод map() создаёт новый массив с результатом вызова указанной функции для каждого элемента массива.
       // Функция parseInt() принимает СТРОКУ в качестве аргумента и возвращает ЦЕЛОЕ ЧИСЛО в соответствии с указанным основанием системы счисления.
+      
+      // Сократим запись 2-мя функциями.
+      function nonLinearFigureAction() {
+        options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
+        main.variables.highlighted = options.slice(0);
+        main.methods.togglehighlight(options);
+      }
+      function linearFigureAction() {
+        options = coordinates.slice(0);
+        main.variables.highlighted = options.slice(0);
+        main.methods.togglehighlight(options);
+      }
+      //Изменить для случая трансформированной фигуры
       switch (main.variables.pieces[selectedpiece].type) {
+
+
         case 'w_king':
 
-          if ($('#6_1').attr('chess') == 'null' && $('#7_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook2'].moved == false) {
-            coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 2, y: 0 }].map(function (val) {
+          // Для короткой и длинной рокировки.
+          if ($('#6_1').attr('chess') == 'null' && $('#7_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook2'].moved == false && $('#4_1').attr('chess') == 'null' && $('#3_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook1'].moved == false) {
+            coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 2, y: 0 }, { x: -2, y: 0 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
-          } else {
+            nonLinearFigureAction();
+            return 
+          }
+          // Для короткой рокировки.
+          if ($('#6_1').attr('chess') == 'null' && $('#7_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook2'].moved == false) {
+            coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 2, y: 0 }].map(function (val) {
+              return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
+            });
+            nonLinearFigureAction();
+            return 
+          }
+          // Для длинной рокировки.
+          if ($('#4_1').attr('chess') == 'null' && $('#3_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook1'].moved == false) {
+            coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: -2, y: 0 }].map(function (val) {
+              return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
+            });
+            nonLinearFigureAction();
+            return 
+          }
+
+          else {
             coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
           }
-
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
         case 'b_king':
 
-          if ($('#6_8').attr('chess') == 'null' && $('#7_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook2'].moved == false) {
-            coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 2, y: 0 }].map(function (val) {
+          // Для короткой и длинной рокировки.
+          if ($('#6_8').attr('chess') == 'null' && $('#7_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook2'].moved == false && $('#4_8').attr('chess') == 'null' && $('#3_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook1'].moved == false) {
+            coordinates = [{ x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: 2, y: 0 }, { x: -2, y: 0 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
-          } else {
+            nonLinearFigureAction();
+            return 
+          }
+          // Для короткой рокировки.
+          if ($('#6_8').attr('chess') == 'null' && $('#7_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook2'].moved == false) {
+            coordinates = [{ x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: 2, y: 0 }].map(function (val) {
+              return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
+            });
+            nonLinearFigureAction();
+            return 
+          }
+          // Для длинной рокировки.
+          if ($('#4_8').attr('chess') == 'null' && $('#3_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook1'].moved == false) {
+            coordinates = [{ x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -2, y: 0 }].map(function (val) {
+              return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
+            });
+            nonLinearFigureAction();
+            return 
+          }
+
+          else {
             coordinates = [{ x: 1, y: 1 }, { x: 1, y: 0 }, { x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }].map(function (val) {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
           }
-
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
         case 'w_queen':
@@ -391,9 +498,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4).concat(c5).concat(c6).concat(c7).concat(c8);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
 
           break;
         case 'b_queen':
@@ -409,9 +514,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4).concat(c5).concat(c6).concat(c7).concat(c8);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
 
           break;
 
@@ -424,9 +527,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
 
           break;
 
@@ -439,9 +540,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
           break;
         case 'w_knight':
 
@@ -449,9 +548,7 @@ let main = {
             return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
           });
 
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
         case 'b_knight':
@@ -460,9 +557,7 @@ let main = {
             return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
           });
 
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
         case 'w_rook':
@@ -474,9 +569,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
 
           break;
         case 'b_rook':
@@ -488,9 +581,7 @@ let main = {
 
           coordinates = c1.concat(c2).concat(c3).concat(c4);
 
-          options = coordinates.slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          linearFigureAction();
 
           break;
         case 'w_pawn':
@@ -511,9 +602,7 @@ let main = {
           }
           // Метод slice() возвращает новый массив, содержащий копию части исходного массива.
           // Добавляем подсвечиваемые координаты.
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
 
@@ -535,9 +624,7 @@ let main = {
 
           }
 
-          options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
-          main.variables.highlighted = options.slice(0);
-          main.methods.togglehighlight(options);
+          nonLinearFigureAction();
 
           break;
 
@@ -741,20 +828,23 @@ let main = {
       }
 
       function movePawn() {
-        let selectedpiece = $('#' + main.variables.selectedpiece).attr('chess');
-        main.variables.log.start = main.variables.pieces[selectedpiece].position;
-        getSelectedFigure();
+        let selectedpiece = $('#' + main.variables.selectedpiece).attr('chess'); // Фигура которой ходим. 
+        main.variables.log.start = main.variables.pieces[selectedpiece].position; // Загружаем в лог начальную позицию.
+        getSelectedFigure(); // Получили значение selected figure ("w_pawn5").
 
         $('#' + target.id).html(currentFigure.type[currentFigure.name]); // Показываем изображение фигуры на новом поле.
-        main.variables.pieces[main.variables.target.name].type = currentFigure.name;
+        main.variables.pieces[main.variables.target.name].type = currentFigure.name; // Изменяю type пешки selected figure ("w_queen"). 
+        main.variables.pieces[main.variables.target.name].position = ''; // Изменяю position пешки selected figure (""). 
         $('#' + target.id).attr('chess', currentFigure.name); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
 
         // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на ''.
         $('#' + main.variables.selectedpiece).html('');
         $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
-        main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры на текущую.
-        main.variables.log.end = main.variables.pieces[selectedpiece].position; // Загружаем в лог конечную позицию фигуры.
+        // main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры пешки на текущую.
+        main.variables.pieces.pawnFigure[currentFigure.name].position = target.id; // Заменяем кооринату selected figure на текущую.
+        main.variables.log.end = main.variables.pieces.pawnFigure[currentFigure.name].position; // Загружаем в лог конечную позицию фигуры.
         main.variables.pieces[selectedpiece].moved = true;
+        main.variables.pieces.pawnFigure[currentFigure.name].trigger = true;
       }
 
       function getSelectedFigure() {
@@ -788,13 +878,9 @@ let main = {
           // Редактированную функцию  main.methods.move(target);
           movePawn();
           main.methods.endturn();
-        } else return
-      } else return
-
-
-
-
-
+          return false
+        } else return true
+      } else return true
     },
 
 
@@ -897,6 +983,7 @@ let main = {
         // Белые сделали ход
         if (main.variables.turn == 'b') { // Ставим 'b' так как изменения в main.variables.turn УЖЕ произведены, а "функция" writelog выполняется после этих изменений.
           K = K + ((2 + main.variables.log.moveNumber) >> 1) + ". "; // 0 >> 1 = 0,   1 >> 1 = 0,   2 >> 1 = 1,   3 >> 1 = 1,   4 >> 1 = 2.
+          // >> - Сдвигает двоичное представление числа a на b разрядов вправо. Освобождающиеся разряды заполняются  знаковым битом.
           T = K + startPositionFigure;
           writelogWhiteTurn();
         }
@@ -950,6 +1037,10 @@ let main = {
 
 
 
+
+
+
+
 // Движение фигур
 $(document).ready(function () {
   main.methods.gamesetup();
@@ -986,64 +1077,122 @@ $(document).ready(function () {
 
       if (selectedpiece.name == 'w_king' || selectedpiece.name == 'b_king') {
 
-        let t0 = (selectedpiece.name = 'w_king');
-        let t1 = (selectedpiece.name = 'b_king');
+        let t0 = (selectedpiece.name == 'w_king');
+        let t1 = (selectedpiece.name == 'b_king');
         let t2 = (main.variables.pieces[selectedpiece.name].moved == false);
         let t3 = (main.variables.pieces['b_rook2'].moved == false);
         let t4 = (main.variables.pieces['w_rook2'].moved == false);
         let t5 = (target.id == '7_8');
         let t6 = (target.id == '7_1');
 
-        if (t0 && t2 && t4 && t6) { // короткая рокировка w_king.
+        let t7 = (main.variables.pieces['b_rook1'].moved == false);
+        let t8 = (main.variables.pieces['w_rook1'].moved == false);
+        let t9 = (target.id == '3_8');
+        let t10 = (target.id == '3_1');
 
-          let k_position = '5_1';
-          let k_target = '7_1';
-          let r_position = '8_1';
-          let r_target = '6_1';
+        if (t9 || t10) { // ДЛИННАЯ рокировка (для различия длинной и короткой рокировок).
+          if (t0 && t2 && t8 && t10) { // w_king.
 
-          main.variables.pieces['w_king'].position = '7_1';
-          main.variables.pieces['w_king'].moved = true;
-          $('#' + k_position).html('');
-          $('#' + k_position).attr('chess', 'null');
-          $('#' + k_target).html(main.variables.pieces['w_king'].img);
-          $('#' + k_target).attr('chess', 'w_king');
+            let k_position = '5_1';
+            let k_target = '3_1';
+            let r_position = '1_1';
+            let r_target = '4_1';
 
-          main.variables.pieces['w_rook2'].position = '6_1';
-          main.variables.pieces['w_rook2'].moved = true;
-          $('#' + r_position).html('');
-          $('#' + r_position).attr('chess', 'null');
-          $('#' + r_target).html(main.variables.pieces['w_rook2'].img);
-          $('#' + r_target).attr('chess', 'w_rook2');
+            main.variables.pieces['w_king'].position = '3_1';
+            main.variables.pieces['w_king'].moved = true;
+            $('#' + k_position).html('');
+            $('#' + k_position).attr('chess', 'null');
+            $('#' + k_target).html(main.variables.pieces['w_king'].img);
+            $('#' + k_target).attr('chess', 'w_king');
 
-          main.variables.log.start = '0-0';
-          main.methods.endturn();
+            main.variables.pieces['w_rook1'].position = '4_1';
+            main.variables.pieces['w_rook1'].moved = true;
+            $('#' + r_position).html('');
+            $('#' + r_position).attr('chess', 'null');
+            $('#' + r_target).html(main.variables.pieces['w_rook1'].img);
+            $('#' + r_target).attr('chess', 'w_rook1');
 
-        } else if (t1 && t2 && t3 && t5) { // короткая рокировка b_king
+            main.variables.log.start = '0-0-0';
+            main.methods.endturn();
 
-          let k_position = '5_8';
-          let k_target = '7_8';
-          let r_position = '8_8';
-          let r_target = '6_8';
+          } else if (t1 && t2 && t7 && t9) { // b_king.
 
-          main.variables.pieces['b_king'].position = '7_8';
-          main.variables.pieces['b_king'].moved = true;
-          $('#' + k_position).html('');
-          $('#' + k_position).attr('chess', 'null');
-          $('#' + k_target).html(main.variables.pieces['b_king'].img);
-          $('#' + k_target).attr('chess', 'b_king');
+            let k_position = '5_8';
+            let k_target = '3_8';
+            let r_position = '1_8';
+            let r_target = '4_8';
 
-          main.variables.pieces['b_rook2'].position = '6_8';
-          main.variables.pieces['b_rook2'].moved = true;
-          $('#' + r_position).html('');
-          $('#' + r_position).attr('chess', 'null');
-          $('#' + r_target).html(main.variables.pieces['b_rook2'].img);
-          $('#' + r_target).attr('chess', 'b_rook2');
+            main.variables.pieces['b_king'].position = '3_8';
+            main.variables.pieces['b_king'].moved = true;
+            $('#' + k_position).html('');
+            $('#' + k_position).attr('chess', 'null');
+            $('#' + k_target).html(main.variables.pieces['b_king'].img);
+            $('#' + k_target).attr('chess', 'b_king');
 
-          main.variables.log.start = '0-0';
-          main.methods.endturn();
+            main.variables.pieces['b_rook1'].position = '4_8';
+            main.variables.pieces['b_rook1'].moved = true;
+            $('#' + r_position).html('');
+            $('#' + r_position).attr('chess', 'null');
+            $('#' + r_target).html(main.variables.pieces['b_rook1'].img);
+            $('#' + r_target).attr('chess', 'b_rook1');
+
+            main.variables.log.start = '0-0-0';
+            main.methods.endturn();
+          }
+        }
+
+        if (t5 || t6) { // КОРОТКАЯ рокировка (для различия длинной и короткой рокировок).
+          if (t0 && t2 && t4 && t6) { // w_king.
+
+            let k_position = '5_1';
+            let k_target = '7_1';
+            let r_position = '8_1';
+            let r_target = '6_1';
+
+            main.variables.pieces['w_king'].position = '7_1';
+            main.variables.pieces['w_king'].moved = true;
+            $('#' + k_position).html('');
+            $('#' + k_position).attr('chess', 'null');
+            $('#' + k_target).html(main.variables.pieces['w_king'].img);
+            $('#' + k_target).attr('chess', 'w_king');
+
+            main.variables.pieces['w_rook2'].position = '6_1';
+            main.variables.pieces['w_rook2'].moved = true;
+            $('#' + r_position).html('');
+            $('#' + r_position).attr('chess', 'null');
+            $('#' + r_target).html(main.variables.pieces['w_rook2'].img);
+            $('#' + r_target).attr('chess', 'w_rook2');
+
+            main.variables.log.start = '0-0';
+            main.methods.endturn();
+
+          } else if (t1 && t2 && t3 && t5) { // b_king.
+
+            let k_position = '5_8';
+            let k_target = '7_8';
+            let r_position = '8_8';
+            let r_target = '6_8';
+
+            main.variables.pieces['b_king'].position = '7_8';
+            main.variables.pieces['b_king'].moved = true;
+            $('#' + k_position).html('');
+            $('#' + k_position).attr('chess', 'null');
+            $('#' + k_target).html(main.variables.pieces['b_king'].img);
+            $('#' + k_target).attr('chess', 'b_king');
+
+            main.variables.pieces['b_rook2'].position = '6_8';
+            main.variables.pieces['b_rook2'].moved = true;
+            $('#' + r_position).html('');
+            $('#' + r_position).attr('chess', 'null');
+            $('#' + r_target).html(main.variables.pieces['b_rook2'].img);
+            $('#' + r_target).attr('chess', 'b_rook2');
+
+            main.variables.log.start = '0-0';
+            main.methods.endturn();
+          }
 
         } else { // move selectedpiece.
-          // Здесь вставить функцию canMove.
+
           if (main.methods.canmove()) {
             main.methods.move(target);
             main.methods.endturn();
@@ -1054,12 +1203,13 @@ $(document).ready(function () {
         }
 
       } else {
+
         // иначе, если selecedpiece.name не белый / черный король, тогда вызываем "move".
-        // Здесь вставить функцию canMove.
         if (main.methods.canmove()) {
-          main.methods.pawntransform(target);
-          main.methods.move(target);
-          main.methods.endturn();
+          if (main.methods.pawntransform(target)) {
+            main.methods.move(target);
+            main.methods.endturn();
+          }
         } else {
           return
         }
@@ -1072,12 +1222,13 @@ $(document).ready(function () {
         // capture. Координаты при взятии фигуры.
         main.variables.log.start = main.variables.pieces[selectedpiece.name].position;
         main.variables.log.end = main.variables.pieces[target.name].position;
-        // Здесь вставить функцию canMove.
+
         if (main.methods.canmove()) {
-          main.methods.pawntransform(target);
-          main.methods.capture(target)
-          main.methods.endturn();
-        } else { return }
+          if (main.methods.pawntransform(target)) {
+            main.methods.capture(target)
+            main.methods.endturn();
+          }
+        } else return
       }
 
     } else if (main.variables.selectedpiece != '' && target.name != 'null' && target.id != selectedpiece.id && selectedpiece.name.slice(0, 1) == target.name.slice(0, 1)) { // toggle move options.
