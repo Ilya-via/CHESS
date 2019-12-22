@@ -16,77 +16,7 @@ let main = {
     pieces: {
 
       pawnFigure: {
-        w_queen: {
-          position: '',
-          trigger: false, // Если функция pawntransform отработала, то trigger = tru          img: '&#9813;',
-          captured: false,
-          moved: false,
-          type: 'w_queen'
-        },
 
-        w_rook: {
-          position: '',
-          img: '&#9814;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'w_rook'
-        },
-
-        w_knight: {
-          position: '',
-          img: '&#9816;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'w_knight'
-        },
-
-        w_bishop: {
-          position: '',
-          img: '&#9815;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'w_bishop'
-        },
-
-
-        b_queen: {
-          position: '',
-          img: '&#9819;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'b_queen'
-        },
-
-        b_rook: {
-          position: '',
-          img: '&#9820;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'b_rook'
-        },
-
-        b_knight: {
-          position: '',
-          img: '&#9822;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'b_knight'
-        },
-
-        b_bishop: {
-          position: '',
-          img: '&#9821;',
-          trigger: false,
-          captured: false,
-          moved: false,
-          type: 'b_bishop'
-        },
       },
 
 
@@ -365,7 +295,7 @@ let main = {
     moveoptions: function (selectedpiece) {
       // выбранная фигура и её координаты в "selectedpiece" приходит "type" (w_pawn1) фигуры.
       // split() разбивает объект String на массив строк путём разделения строки указанной подстрокой.
-      // Получаем координаты выбранной вигуры.
+      // Получаем координаты выбранной фигуры.
       let position = { x: '', y: '' };
 
       function triggerValue() {
@@ -399,7 +329,7 @@ let main = {
       }
       // Метод map() создаёт новый массив с результатом вызова указанной функции для каждого элемента массива.
       // Функция parseInt() принимает СТРОКУ в качестве аргумента и возвращает ЦЕЛОЕ ЧИСЛО в соответствии с указанным основанием системы счисления.
-      
+
       // Сократим запись 2-мя функциями.
       function nonLinearFigureAction() {
         options = (main.methods.options(startpoint, coordinates, main.variables.pieces[selectedpiece].type)).slice(0);
@@ -423,7 +353,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
           // Для короткой рокировки.
           if ($('#6_1').attr('chess') == 'null' && $('#7_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook2'].moved == false) {
@@ -431,7 +361,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
           // Для длинной рокировки.
           if ($('#4_1').attr('chess') == 'null' && $('#3_1').attr('chess') == 'null' && main.variables.pieces['w_king'].moved == false && main.variables.pieces['w_rook1'].moved == false) {
@@ -439,7 +369,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
 
           else {
@@ -458,7 +388,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
           // Для короткой рокировки.
           if ($('#6_8').attr('chess') == 'null' && $('#7_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook2'].moved == false) {
@@ -466,7 +396,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
           // Для длинной рокировки.
           if ($('#4_8').attr('chess') == 'null' && $('#3_8').attr('chess') == 'null' && main.variables.pieces['b_king'].moved == false && main.variables.pieces['b_rook1'].moved == false) {
@@ -474,7 +404,7 @@ let main = {
               return (parseInt(position.x) + parseInt(val.x)) + '_' + (parseInt(position.y) + parseInt(val.y));
             });
             nonLinearFigureAction();
-            return 
+            return
           }
 
           else {
@@ -815,6 +745,7 @@ let main = {
     pawntransform: function (target) {
       var currentFigure = {
         name: '',
+        newName: '',
         type: {
           w_queen: "&#9813;",
           b_queen: "&#9819;",
@@ -833,22 +764,63 @@ let main = {
         getSelectedFigure(); // Получили значение selected figure ("w_pawn5").
 
         $('#' + target.id).html(currentFigure.type[currentFigure.name]); // Показываем изображение фигуры на новом поле.
-        main.variables.pieces[main.variables.target.name].type = currentFigure.name; // Изменяю type пешки selected figure ("w_queen"). 
-        main.variables.pieces[main.variables.target.name].position = ''; // Изменяю position пешки selected figure (""). 
-        $('#' + target.id).attr('chess', currentFigure.name); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
 
-        // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на ''.
-        $('#' + main.variables.selectedpiece).html('');
+        delete main.variables.pieces[main.variables.target.name];     // Удалить фигуру как объект.
+        
+        $('#' + main.variables.selectedpiece).html(''); // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на '' и убираем изображение пешки.
         $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
-        // main.variables.pieces[selectedpiece].position = target.id; // Заменяем кооринату фигуры пешки на текущую.
-        main.variables.pieces.pawnFigure[currentFigure.name].position = target.id; // Заменяем кооринату selected figure на текущую.
-        main.variables.log.end = main.variables.pieces.pawnFigure[currentFigure.name].position; // Загружаем в лог конечную позицию фигуры.
-        main.variables.pieces[selectedpiece].moved = true;
-        main.variables.pieces.pawnFigure[currentFigure.name].trigger = true;
+
+        // Необходимо создать объект в массиве в который будут добавляться новые трансформированные фигуры.
+        mergingNewNameFigure();
+        main.variables.pieces.pawnFigure[currentFigure.newName] = {
+          position: '',
+          img: currentFigure.type[currentFigure.name],
+          trigger: false,
+          captured: false,
+          moved: false,
+          type: currentFigure.name
+        };
+
+        $('#' + target.id).attr('chess', currentFigure.newName); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
+        main.variables.pieces.pawnFigure[currentFigure.newName].position = target.id; // Заменяем кооринату selected figure на текущую.
+        main.variables.log.end = main.variables.pieces.pawnFigure[currentFigure.newName].position; // Загружаем в лог конечную позицию фигуры.
+        main.variables.pieces.pawnFigure[currentFigure.newName].trigger = true; // Если функция pawntransform отработала, то trigger = true.
+
+
+        function mergingNewNameFigure() {
+          currentFigure.newName = currentFigure.name + formationNumberFigure()
+        }
+
+        function formationNumberFigure() {
+          let a = numberIdenticalFigure() + 1; // Добавляем номер "+1" как создаваемой фигуре.
+          return a
+        }
+
+        function numberIdenticalFigure() { // сколько раз повторяется, выбранная для трансформации фигура, в объекте pawnFigure.
+          var allTransformFigures = [];
+          for (var key in main.variables.pieces.pawnFigure) { // Добавляем все трансформированные фигуры перебором ключей объекта pawnTransform.
+            allTransformFigures.push(key);
+          }
+          // Ищем сколько раз в массиве "allTransformFigures" встречается выбранная для трансформации фигура.
+          var arr2 = [];
+          for (i in allTransformFigures) {
+            if (allTransformFigures[i] == currentFigure.name) { // Ищем число повторений только для выбранной (для трансформации) фигуры.
+              if (arr2[allTransformFigures[i]] != undefined) {
+                arr2[allTransformFigures[i]]++;
+              }
+              else {
+                arr2[allTransformFigures[i]] = 1;
+              }
+            }
+          }
+          allTransformFigures.length = 0;
+          if (isNaN(arr2[currentFigure.name])) {
+            return 0;
+          } else return arr2[currentFigure.name];
+        }
       }
 
       function getSelectedFigure() {
-
         let f;
         let value = $('.change-figure').val();
         switch (value) {
@@ -878,7 +850,7 @@ let main = {
           // Редактированную функцию  main.methods.move(target);
           movePawn();
           main.methods.endturn();
-          return false
+          return false // Рассмотреть случай с capture.
         } else return true
       } else return true
     },
