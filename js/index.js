@@ -15,11 +15,6 @@ let main = {
     highlighted: [],
     pieces: {
 
-      pawnFigure: {
-
-      },
-
-
       w_king: {
         position: '5_1', // x_y
         img: '&#9812;',
@@ -299,24 +294,19 @@ let main = {
       let position = { x: '', y: '' };
 
       function triggerValue() {
-        for (var key in main.variables.pieces.pawnFigure) {
+        for (var key in main.variables.pieces) {
           if (key.indexOf(selectedpiece) + 1) {
-            if (main.variables.pieces.pawnFigure[selectedpiece].trigger == true) {
+            if (main.variables.pieces[selectedpiece].trigger == true) {
               return true // Если trigger = false - не трансформированная из пешки фигура.
             }
           }
         } return false // Если ничего не найдено.
       }
 
-      if (triggerValue()) {
-        position.x = main.variables.pieces.pawnFigure[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
-        position.y = main.variables.pieces.pawnFigure[selectedpiece].position.split('_')[1]; // ключ position второе значение.
-        var startpoint = main.variables.pieces.pawnFigure[selectedpiece].position;
-      } else {
-        position.x = main.variables.pieces[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
-        position.y = main.variables.pieces[selectedpiece].position.split('_')[1]; // ключ position второе значение.
-        var startpoint = main.variables.pieces[selectedpiece].position;
-      }
+      position.x = main.variables.pieces[selectedpiece].position.split('_')[0]; // ключ position первое значение (w_pawn1 и position: '1_2').
+      position.y = main.variables.pieces[selectedpiece].position.split('_')[1]; // ключ position второе значение.
+      var startpoint = main.variables.pieces[selectedpiece].position;
+
 
       // Здесь необходимо использовать var вместо let
       var options = [];
@@ -741,7 +731,6 @@ let main = {
       main.variables.pieces[target.name].captured = true;
     },
 
-
     pawntransform: function (target) {
       var currentFigure = {
         name: '',
@@ -766,13 +755,13 @@ let main = {
         $('#' + target.id).html(currentFigure.type[currentFigure.name]); // Показываем изображение фигуры на новом поле.
 
         delete main.variables.pieces[main.variables.target.name];     // Удалить фигуру как объект.
-        
+
         $('#' + main.variables.selectedpiece).html(''); // Через .html() заменяем значение фигуры в div с id=main.variables.selectedpiece на '' и убираем изображение пешки.
         $('#' + main.variables.selectedpiece).attr('chess', 'null'); // Старое поле оставляем пустым.
 
         // Необходимо создать объект в массиве в который будут добавляться новые трансформированные фигуры.
         mergingNewNameFigure();
-        main.variables.pieces.pawnFigure[currentFigure.newName] = {
+        main.variables.pieces[currentFigure.newName] = {
           position: '',
           img: currentFigure.type[currentFigure.name],
           trigger: false,
@@ -782,41 +771,41 @@ let main = {
         };
 
         $('#' + target.id).attr('chess', currentFigure.newName); // Задаём атрибут выбранной фигуры типу "chess" в новом div.
-        main.variables.pieces.pawnFigure[currentFigure.newName].position = target.id; // Заменяем кооринату selected figure на текущую.
-        main.variables.log.end = main.variables.pieces.pawnFigure[currentFigure.newName].position; // Загружаем в лог конечную позицию фигуры.
-        main.variables.pieces.pawnFigure[currentFigure.newName].trigger = true; // Если функция pawntransform отработала, то trigger = true.
-
+        main.variables.pieces[currentFigure.newName].position = target.id; // Заменяем кооринату selected figure на текущую.
+        main.variables.log.end = main.variables.pieces[currentFigure.newName].position; // Загружаем в лог конечную позицию фигуры.
+        main.variables.pieces[currentFigure.newName].trigger = true; // Если функция pawntransform отработала, то trigger = true.
+        // main.variables.pieces[target.name].captured = true;  // для capture
 
         function mergingNewNameFigure() {
-          currentFigure.newName = currentFigure.name + formationNumberFigure()
+          currentFigure.newName = currentFigure.name + numberIdenticalFigure()
         }
 
-        function formationNumberFigure() {
-          let a = numberIdenticalFigure() + 1; // Добавляем номер "+1" как создаваемой фигуре.
-          return a
-        }
-
-        function numberIdenticalFigure() { // сколько раз повторяется, выбранная для трансформации фигура, в объекте pawnFigure.
+        function numberIdenticalFigure() { // сколько раз повторяется, выбранная для трансформации фигура.
           var allTransformFigures = [];
-          for (var key in main.variables.pieces.pawnFigure) { // Добавляем все трансформированные фигуры перебором ключей объекта pawnTransform.
+          for (var key in main.variables.pieces) { // Добавляем все фигуры из объекта pieces перебором его ключей в массив.
             allTransformFigures.push(key);
           }
           // Ищем сколько раз в массиве "allTransformFigures" встречается выбранная для трансформации фигура.
           var arr2 = [];
           for (i in allTransformFigures) {
-            if (allTransformFigures[i] == currentFigure.name) { // Ищем число повторений только для выбранной (для трансформации) фигуры.
-              if (arr2[allTransformFigures[i]] != undefined) {
-                arr2[allTransformFigures[i]]++;
+            if (allTransformFigures[i].indexOf(currentFigure.name) + 1) {// Ищем число повторений только для выбранной (для трансформации) фигуры (пытаемся её найти среди массива фигур).
+
+              if (arr2[currentFigure.name] != undefined) { // Если массив пустой - мы должны начать с какого-либо значения, поэтому ставим arr2[allTransformFigures[i]] = 1;
+                arr2[currentFigure.name]++;
               }
               else {
-                arr2[allTransformFigures[i]] = 1;
+                arr2[currentFigure.name] = 1;
               }
             }
           }
+          if (currentFigure.name == "w_rook" || currentFigure.name == "b_rook" || currentFigure.name == "w_knight" || currentFigure.name == "b_knight" || currentFigure.name == "w_bishop" || currentFigure.name == "b_bishop") {
+            arr2[currentFigure.name]++; // Называем ладью, коня, слона, с цифры 3 - "w_rook3" (кроме ферзя).
+          }
           allTransformFigures.length = 0;
-          if (isNaN(arr2[currentFigure.name])) {
-            return 0;
-          } else return arr2[currentFigure.name];
+          // if (isNaN(arr2[currentFigure.name])) {
+          //   return 1;
+          // } else return arr2[currentFigure.name];
+          return arr2[currentFigure.name];
         }
       }
 
@@ -850,11 +839,10 @@ let main = {
           // Редактированную функцию  main.methods.move(target);
           movePawn();
           main.methods.endturn();
-          return false // Рассмотреть случай с capture.
+          return false
         } else return true
       } else return true
     },
-
 
     // Функция сравнивает id div-a по кторрому я кликнул для перемещения фигуры, с массивом highlighted возможных ходов.
     // Выдаёт true или false.
@@ -862,12 +850,22 @@ let main = {
       if (main.variables.selectedpiece == main.variables.target.id) { return false } // Если координата поля на котором сработало событие originalEvent: MouseEvent, type: "click" равна позици фигуры которой будем ходить - return, иначе продолжить.
       else {
         var arr = [];
-        main.variables.highlighted.forEach(function (element, index, array) {
+        main.variables.highlighted.forEach(function (element) {
           arr.push(main.variables.target.id == element); // Ищем наличие координаты поля, на которое выбрали ходить,  в массиве возможных ходов.
         });
         if (($.inArray(true, arr)) == parseInt("-1")) { return false } // Если в массиве возможных ходов ничего не найдено "-1" - return false, иначе return true.
         else { return true }
       }
+    },
+
+    itPawn: function () {
+      if (main.variables.target.name.indexOf('pawn') + 1) {
+        let y;
+        y = parseInt(main.variables.target.id.split('_')[1]);
+        if (y == 1 || y == 8) {
+          return false
+        } else return true
+      } else return true
     },
 
     move: function (target) {
