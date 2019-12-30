@@ -6,7 +6,7 @@
 }
 
 @font-face {
-    font-family: agenda-light;
+    font-family: "agenda-light";
     src: url(../fonts/agenda-light.otf) format("truetype");
     font-style: normal;
     font-weight: 400;
@@ -126,7 +126,7 @@
     padding: 5px;
     margin: 0 0 0 50px;
     color: black;
-    font-family: agenda-light;
+    font-family: "agenda-light";
     font-size: 40px;
     overflow-y: auto;
     box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.5);
@@ -158,6 +158,24 @@
     outline: none !important;
     border: none !important;
 }
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #000;
+}
+
+/* для IE  */
+select::-ms-expand {
+    display: none;
+}
+
+option:checked {
+    color: rgba(87, 156, 84, 0.75);
+}
+
+
 
 .cellprefix,
 .gamecell {
